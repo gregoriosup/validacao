@@ -1,3 +1,11 @@
+### pacotes####
+
+library(lmtest)
+library(car)
+
+
+#### exatidao ####
+
 rec_temp0 <- c(104.21,
 110.05,
 99.03,
@@ -54,6 +62,17 @@ mod <- lm(df_lin)
 
 anova(mod)
 
+anova(mod) #teste F <0,05 nao rejeita sig do mod
+par(mfrow=c(2,2))
+plot(mod) #homocedasticidade e residuos
+par(mfrow=c(1,1))
+bptest(mod) #homocedasticidade
+shapiro.test(mod$residuals) #normalidade dos residuos >0,05 é normal
+boxplot(mod$residuals) #outlier dos residuos
+boxplot(df_lin$abs)
+summary(mod)
+cor(df_lin$conc, df_lin$abs, method = "pearson")
+plot(df_lin$conc, df_lin$abs) #verificar linearidade
 
 
 
